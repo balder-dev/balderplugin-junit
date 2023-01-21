@@ -48,8 +48,9 @@ class JunitPlugin(balder.BalderPlugin):
         return test_case
 
     def session_finished(self, executor_tree: Union[ExecutorTree, None]):
-        filepath = pathlib.Path(self.balder_session.parsed_args.junit_file)
-        if executor_tree is not None and filepath is not None:
+        filepath_str = self.balder_session.parsed_args.junit_file
+        if executor_tree is not None and filepath_str is not None:
+            filepath = pathlib.Path(filepath_str)
             all_test_suites = []
             for cur_setup_executor in executor_tree.setup_executors:
                 for cur_scenario_executor in cur_setup_executor.scenario_executors:
