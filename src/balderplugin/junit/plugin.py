@@ -52,11 +52,11 @@ class JunitPlugin(balder.BalderPlugin):
         if executor_tree is not None and filepath_str is not None:
             filepath = pathlib.Path(filepath_str)
             all_test_suites = []
-            for cur_setup_executor in executor_tree.setup_executors:
-                for cur_scenario_executor in cur_setup_executor.scenario_executors:
-                    for cur_variation_executor in cur_scenario_executor.variation_executors:
+            for cur_setup_executor in executor_tree.get_setup_executors():
+                for cur_scenario_executor in cur_setup_executor.get_scenario_executors():
+                    for cur_variation_executor in cur_scenario_executor.get_variation_executors():
                         all_testcases = []
-                        for cur_test_case_executor in cur_variation_executor.testcase_executors:
+                        for cur_test_case_executor in cur_variation_executor.get_testcase_executors():
                             test_case = self.create_test_case(cur_test_case_executor)
                             all_testcases.append(test_case)
 
